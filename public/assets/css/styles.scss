@@ -1,0 +1,44 @@
+table {
+  width: 100%;
+  text-align: center;
+}
+
+th {
+  font-weight: 700;
+}
+
+td:last-of-type, th:last-of-type {
+  text-align: right;
+}
+
+th {
+  font-weight: 700;
+}
+
+table,
+th,
+td {
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+}
+
+tfoot {
+  font-size: larger;
+
+  td:first-of-type {
+    text-align: right;
+    font-weight: 700;
+  }
+
+  td:last-of-type {
+    font-weight: 500;
+  }
+}
+
+.neg {
+  color: red;
+}
+
+.pos {
+  color: green;
+}
