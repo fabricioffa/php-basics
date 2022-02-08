@@ -17,27 +17,26 @@
         <tbody>
             <?php
             require_once APP_PATH . 'app.php';
-
-            foreach ($fileContent as $i => $line) {
-                if ($i === 0) {
-                    echo '<tr>';
-                    foreach ($line as $th) echo '<th>' . $th . '</th>';
-                    echo '</tr>';
-                    continue;
-                }
-
-                echo '<tr>';
-                foreach ($line as $i => $tr) {
-                  if ($i === (count($line) - 1)) {
-                    $className = str_contains($tr, '-')? " class='neg'" : " class='pos'";
-
-                    echo"<td${className}>" . $tr . '</td>';
-                    continue;
+              foreach ($dirContent as $i => $line) {
+                  if ($i === 0) {
+                      echo '<tr>';
+                      foreach ($line as $th) echo '<th>' . $th . '</th>';
+                      echo '</tr>';
+                      continue;
                   }
-                  echo '<td>' . $tr . '</td>';
-                };
-                echo '</tr>';
-            }
+
+                  echo '<tr>';
+                  foreach ($line as $i => $tr) {
+                    if ($i === (count($line) - 1)) {
+                      $className = str_contains($tr, '-')? " class='neg'" : " class='pos'";
+
+                      echo"<td${className}>" . $tr . '</td>';
+                      continue;
+                    }
+                    echo '<td>' . $tr . '</td>';
+                  };
+                  echo '</tr>';
+              }
             ?>
         </tbody>
             <tfoot>

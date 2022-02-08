@@ -1,24 +1,28 @@
 <?php
 
-$files = array_diff(scandir(FILES_PATH), ['.', '..'] ) ;
-var_dump($files);
-$file = fopen(FILES_PATH . 'transactions_1.csv', 'r');
+$files = array_diff(scandir(FILES_PATH), ['.', '..']);
+// $file = fopen(FILES_PATH . 'transactions_1.csv', 'r');
+
 $dirContent = [];
 $fileContent = [];
 $totalIncome = 0;
 $totalExpense = 0;
 
-
-
-
-if ($file) {
+foreach ($files as $key => $file) {
+  $file = fopen(FILES_PATH . $file, 'r');
+  $fileContent = [];
+  if ($file) {
     while (($line = fgetcsv($file)) !== false) {
-        $amount = floatval(str_replace(['$', ','], '', end($line)));
-        $amount > 0 ? $totalIncome += $amount : $totalExpense += $amount;
-        array_push($fileContent, $line);
+      $amount = floatval(str_replace(['$', ','], '', end($line)));
+      $amount > 0 ? $totalIncome += $amount : $totalExpense += $amount;
+      array_push($fileContent, $line);
     }
     fclose($file);
+  }
+  if ($key > 2 ) unset($fileContent[0]) ;
+  $dirContent = array_merge($dirContent, $fileContent);
 }
+
 $netTotal = $totalIncome + $totalExpense;
 
 $totalIncome = substr_replace(number_format($totalIncome, 2, '.', ','), '$', 0, 0);
