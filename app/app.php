@@ -1,25 +1,61 @@
 <?php
 
-$files = array_diff(scandir(FILES_PATH), ['.', '..']);
-// $file = fopen(FILES_PATH . 'transactions_1.csv', 'r');
+declare(strict_types=1);
 
 $dirContent = [];
 $fileContent = [];
 $totalIncome = 0;
 $totalExpense = 0;
 
-foreach ($files as $key => $file) {
-  $file = fopen(FILES_PATH . $file, 'r');
+function getFilesPaths(string $path): array {
+  $filesList = array_diff(scandir($path), ['.', '..']);
+  $filesPaths = [];
+
+  foreach ($filesList as $fileName) {
+    $filesPaths[] = $path . $fileName;
+  }
+
+  return $filesPaths;
+}
+
+function getFileContent(string $filePath): array {
+  $file = fopen($filePath, 'r');
   $fileContent = [];
+
   if ($file) {
     while (($line = fgetcsv($file)) !== false) {
-      $amount = floatval(str_replace(['$', ','], '', end($line)));
-      $amount > 0 ? $totalIncome += $amount : $totalExpense += $amount;
       array_push($fileContent, $line);
     }
     fclose($file);
   }
-  if ($key > 2 ) unset($fileContent[0]) ;
+
+  return $fileContent;
+}
+
+function getPartials(array $filesContent): array {
+  $partials = [];
+
+  foreach ($filesContent as $fileContent) {
+    $amount = floatval(str_replace(['$', ','], '', end($fileContent)));
+    $amount > 0 ?
+      $partials['income'] += $amount :
+      $partials['expense'] += $amount;
+  }
+
+  return $partials;
+}
+
+$files = getFilesPaths(FILES_PATH);
+
+
+foreach ($files as $key => $file) {
+  $fileContent = getFileContent($file);
+
+  $partials = getPartials($fileContent);
+  $totalExpense += $partials['expense'];
+  $totalIncome += $partials['income'];
+
+  if ($key > 2 ) unset($fileContent[0]);
   $dirContent = array_merge($dirContent, $fileContent);
 }
 
