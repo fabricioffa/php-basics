@@ -1,8 +1,17 @@
 {
+<<<<<<< HEAD
   "name": "php-basics",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+=======
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+>>>>>>> 97fd5438bc8070d5222f7629c8b6a35f78203c82
   "scripts": {
     "start": "cd public && php -S localhost:4000"
   },
