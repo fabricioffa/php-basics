@@ -1,0 +1,20 @@
+{
+  "name": "php-basics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd public && php -S localhost:4000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabricioffa/php-basics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fabricioffa/php-basics/issues"
+  },
+  "homepage": "https://github.com/fabricioffa/php-basics#readme"
+}
